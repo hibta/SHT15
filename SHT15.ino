@@ -14,21 +14,30 @@ SHT1x sht15(A4, A5);//Data, SCK
 int power = A3;
 int gnd = A2;
 
+// LEDのピン
+int led_green = 12;
+int led_red = 13;
+
 void setup()
 {
   Serial.begin(9600); // Open serial connection to report values to host
 
   pinMode(power, OUTPUT);
   pinMode(gnd, OUTPUT);
+  pinMode(led_green, OUTPUT);
+  pinMode(led_red, OUTPUT);
 
   digitalWrite(power, HIGH);
   digitalWrite(gnd, LOW);
+  digitalWrite(led_green, HIGH);
+  digitalWrite(led_red, HIGH);
 }
 //-------------------------------------------------------------------------------------------
 void loop()
 {
   calAverage(10);  // 10秒毎の平均を出力
   printOut();
+  setLED(23);  // 23度以下だと赤LEDを点灯
 }
 //-------------------------------------------------------------------------------------------
 void readSensor()
@@ -66,4 +75,19 @@ void calAverage(int num)    // num秒間の平均を計算
   // numで割って平均を保存
   ave_tempC = tmp_tempC / num;
   ave_humidity = tmp_humidity / num;
+}
+//-------------------------------------------------------------------------------------------
+// 室温がtemp度以下だと赤色, それ以外は緑色のLEDを光らせる
+void setLED(float temp)
+{
+  if (ave_tempC <= temp)
+  {
+    digitalWrite(led_green, LOW);
+    digitalWrite(led_red, HIGH);
+  }
+  else
+  {
+    digitalWrite(led_green, HIGH);
+    digitalWrite(led_red, LOW);
+  }
 }
