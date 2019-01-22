@@ -1,7 +1,7 @@
 #include <SHT1X.h>
 
 int TIME = 30;  // 平均を計算する間隔(秒)
-float TEMP = 24;  // LEDが切り替わる気温の閾値(度)
+float TEMP = 25;  // LEDが切り替わる気温の閾値(度)
 
 
 // 気温, 湿度を保存
