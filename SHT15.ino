@@ -74,8 +74,8 @@ void checkTemp()
     COUNT = 0;  // カウントをリセット
   }
   
-  // カウントが5以上の(5分間下がり続けた)場合
-  if (COUNT >= 5) 
+  // カウントが5以上(5分間下がり続けた)かつ気温が24度以下の場合
+  if (COUNT >= 5 && tempC <= 24.0) 
   {
     //Serial.println(" AC ON");
     lightLED();  // エアコンをON
